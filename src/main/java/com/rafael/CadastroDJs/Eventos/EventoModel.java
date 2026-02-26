@@ -3,6 +3,8 @@ package com.rafael.CadastroDJs.Eventos;
 import com.rafael.CadastroDJs.DJs.DJModel;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tb_evento")
 public class EventoModel {
@@ -14,7 +16,9 @@ public class EventoModel {
     private String evento;
     private String local;
     private int duracao;
-    private DJModel djs;
+
+    @OneToMany(mappedBy = "eventos")
+    private List<DJModel> djs;
 
     public EventoModel() {
     }

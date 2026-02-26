@@ -18,7 +18,9 @@ public class DJModel {
     private int idade;
     private String email;
 
-    
+    @ManyToOne
+    @JoinColumn(name = "evento_id")
+    private EventoModel eventos;
 
     public DJModel() {
     }
