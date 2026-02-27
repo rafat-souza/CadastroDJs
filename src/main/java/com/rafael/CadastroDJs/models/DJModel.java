@@ -1,6 +1,5 @@
-package com.rafael.CadastroDJs.DJs;
+package com.rafael.CadastroDJs.models;
 
-import com.rafael.CadastroDJs.Eventos.EventoModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "tb_cadastro")
-@Data
+@Data // Coloca getter e setter para resgatar ou fazer mudanças
 @NoArgsConstructor
 @AllArgsConstructor
 public class DJModel {
@@ -24,7 +23,7 @@ public class DJModel {
 
     @ManyToOne
     @JoinColumn(name = "evento_id")
-    private EventoModel eventos;
+    private EventoModel evento;
 
 
 }

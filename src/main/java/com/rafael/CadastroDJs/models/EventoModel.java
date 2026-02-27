@@ -1,6 +1,5 @@
-package com.rafael.CadastroDJs.Eventos;
+package com.rafael.CadastroDJs.models;
 
-import com.rafael.CadastroDJs.DJs.DJModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +22,7 @@ public class EventoModel {
     private String local;
     private int duracao;
 
-    @OneToMany(mappedBy = "eventos")
+    @OneToMany(mappedBy = "evento")
     private List<DJModel> djs;
 
 
