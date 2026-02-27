@@ -2,11 +2,15 @@ package com.rafael.CadastroDJs.DJs;
 
 import com.rafael.CadastroDJs.Eventos.EventoModel;
 import jakarta.persistence.*;
-
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "tb_cadastro")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DJModel {
 
     @Id
@@ -22,46 +26,5 @@ public class DJModel {
     @JoinColumn(name = "evento_id")
     private EventoModel eventos;
 
-    public DJModel() {
-    }
-
-    public DJModel(String dj, String label, int idade, String email) {
-        this.dj = dj;
-        this.label = label;
-        this.idade = idade;
-        this.email = email;
-    }
-
-    public String getDj() {
-        return dj;
-    }
-
-    public void setDj(String dj) {
-        this.dj = dj;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
 }

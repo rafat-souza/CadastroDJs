@@ -2,11 +2,17 @@ package com.rafael.CadastroDJs.Eventos;
 
 import com.rafael.CadastroDJs.DJs.DJModel;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name = "tb_evento")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class EventoModel {
 
     @Id
@@ -20,37 +26,5 @@ public class EventoModel {
     @OneToMany(mappedBy = "eventos")
     private List<DJModel> djs;
 
-    public EventoModel() {
-    }
-
-    public EventoModel(String evento, String local, int duracao){
-        this.evento = evento;
-        this.local = local;
-        this.duracao = duracao;
-    }
-
-    public String getEvento() {
-        return evento;
-    }
-
-    public void setEvento(String evento) {
-        this.evento = evento;
-    }
-
-    public String getLocal() {
-        return local;
-    }
-
-    public void setLocal(String local) {
-        this.local = local;
-    }
-
-    public int getDuracao() {
-        return duracao;
-    }
-
-    public void setDuracao(int duracao) {
-        this.duracao = duracao;
-    }
 
 }
