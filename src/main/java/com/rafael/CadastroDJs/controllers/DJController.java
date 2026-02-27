@@ -21,7 +21,12 @@ public class DJController {
     }
 
     @PostMapping
-    public DJModel create(@RequestBody DJModel dj) {
+    public DJModel create(@RequestBody DJModel dj) { // @RequestBody chama os atributos da class (colunas da tabela)
         return services.create(dj);
+    }
+
+    @DeleteMapping
+    public void delete(@PathVariable Long id) {
+        services.delete(id);
     }
 }
