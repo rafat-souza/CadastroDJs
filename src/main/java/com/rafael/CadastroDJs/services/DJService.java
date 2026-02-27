@@ -14,5 +14,17 @@ public class DJService {
     private final DJRepository djRepository; // O arquivo de repositório importa o JpaRepository, que contém os métodos para os serviços.
 
     // Resgatar todos os DJs. O nome do serviço é getAll.
-    public List<DJModel> getAll() {return djRepository.findAll();}
+    public List<DJModel> getAll() {
+        return djRepository.findAll();
+    }
+
+    // Postar ou atualizar DJ. O nome é save
+    public DJModel create(DJModel dj) {
+        return djRepository.save(dj);
+    }
+
+    // Deletar DJ. Void porque não precisa retornar nada
+    public void delete(Long id) {
+        djRepository.deleteById(id);
+    }
 }
