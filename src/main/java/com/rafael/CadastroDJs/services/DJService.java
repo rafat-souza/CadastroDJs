@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +18,9 @@ public class DJService {
     public List<DJModel> getAll() {
         return djRepository.findAll();
     }
+
+    // Resgatar um único DJ.
+    public DJModel get(Long id) { return djRepository.findById(id).orElseThrow(() -> new RuntimeException("DJ não encontrado")); }
 
     // Postar ou atualizar DJ.
     public DJModel create(DJModel dj) {

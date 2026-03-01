@@ -22,21 +22,28 @@ public class DJController {
         return services.getAll();
     }
 
+    @GetMapping("/djs/{id}")
+    public ResponseEntity<DJModel> get(@PathVariable Long id) {
+        DJModel dj = services.get(id);
+        return ResponseEntity.ok(dj);
+    }
+
     @PostMapping
     public ResponseEntity<DJModel> create(@RequestBody DJModel dj) { // @RequestBody chama os atributos da class (colunas da tabela)
         DJModel savedDj = services.create(dj);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedDj);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/djs/{id}")
     public ResponseEntity<DJModel> update(@PathVariable Long id, @RequestBody DJModel dj) {
         dj.setId(id);
         DJModel updatedDj = services.create(dj);
         return ResponseEntity.ok(updatedDj);
     }
 
-    @DeleteMapping
-    public void delete(@PathVariable Long id) {
+    @DeleteMapping("/djs/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         services.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
