@@ -1,6 +1,7 @@
 package com.rafael.CadastroDJs.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,9 +17,13 @@ public class DJModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String dj;
+
     private String label;
     private int idade;
+
+    @NotBlank
     private String email;
 
     @ManyToOne
