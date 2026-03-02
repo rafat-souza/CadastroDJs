@@ -1,12 +1,12 @@
 package com.rafael.CadastroDJs.services;
 
+import com.rafael.CadastroDJs.exceptions.ResourceNotFoundException;
 import com.rafael.CadastroDJs.models.DJModel;
 import com.rafael.CadastroDJs.repositories.DJRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +20,7 @@ public class DJService {
     }
 
     // Resgatar um único DJ.
-    public DJModel get(Long id) { return djRepository.findById(id).orElseThrow(() -> new RuntimeException("DJ não encontrado")); }
+    public DJModel get(Long id) { return djRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("DJ não encontrado")); }
 
     // Postar ou atualizar DJ.
     public DJModel create(DJModel dj) {
@@ -29,6 +29,9 @@ public class DJService {
 
     // Deletar DJ. Void porque não precisa retornar nada
     public void delete(Long id) {
+        if (!djRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Não foi possível deletar: DJ não encontrado");
+        }
         djRepository.deleteById(id);
     }
 }
