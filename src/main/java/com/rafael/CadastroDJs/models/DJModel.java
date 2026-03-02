@@ -2,19 +2,20 @@ package com.rafael.CadastroDJs.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Table(name = "tb_cadastro")
-@Data // Coloca getter e setter para resgatar ou fazer mudanças
+@Table(name = "tb_djs")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class DJModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @NotBlank
@@ -29,6 +30,5 @@ public class DJModel {
     @ManyToOne
     @JoinColumn(name = "evento_id")
     private EventoModel evento;
-
 
 }
