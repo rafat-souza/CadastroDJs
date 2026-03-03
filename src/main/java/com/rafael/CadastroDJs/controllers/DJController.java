@@ -1,7 +1,9 @@
 package com.rafael.CadastroDJs.controllers;
 
+import com.rafael.CadastroDJs.documentation.DJControllerDoc;
 import com.rafael.CadastroDJs.models.DJModel;
 import com.rafael.CadastroDJs.services.DJService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/djs")
 @RequiredArgsConstructor // Substitui construtor (faz a injeção de dependência) para pegar serviço
-public class DJController {
+public class DJController implements DJControllerDoc {
 
     private final DJService services;
 
