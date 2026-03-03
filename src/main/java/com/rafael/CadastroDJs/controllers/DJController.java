@@ -22,7 +22,7 @@ public class DJController {
         return services.getAll();
     }
 
-    @GetMapping("/djs/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<DJModel> get(@PathVariable Long id) {
         DJModel dj = services.get(id);
         return ResponseEntity.ok(dj);
@@ -34,14 +34,14 @@ public class DJController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedDj);
     }
 
-    @PutMapping("/djs/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<DJModel> update(@PathVariable Long id, @RequestBody DJModel dj) {
         dj.setId(id);
         DJModel updatedDj = services.create(dj);
         return ResponseEntity.ok(updatedDj);
     }
 
-    @DeleteMapping("/djs/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         services.delete(id);
         return ResponseEntity.noContent().build();
