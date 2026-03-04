@@ -25,13 +25,13 @@ public class DJService {
     }
 
     public DJResponseDTO get(Long id) {
-        DJModel djModel = djRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("DJ não encontrado."));
+        DJModel djModel = buscarDjOuFalhar(id);
         return converterParaResponseDTO(djModel);
     }
 
     public DJResponseDTO create(DJRequestDTO request) {
-        EventoModel evento = eventoRepository.findById(request.eventoId())
-                .orElseThrow(() -> new ResourceNotFoundException("Evento de ID " + request.eventoId() + " não encontrado."));
+        EventoModel evento = buscarEventoOuFalhar(request.eventoId());
+
         DJModel novoDj = new DJModel();
         novoDj.setDj(request.dj());
         novoDj.setLabel(request.label());
@@ -45,11 +45,9 @@ public class DJService {
     }
 
     public DJResponseDTO update(Long id, DJRequestDTO request) {
-        DJModel djExistente = djRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("DJ não encontrado"));
+        DJModel djExistente = buscarDjOuFalhar(id);
 
-        EventoModel evento = eventoRepository.findById(request.eventoId())
-                .orElseThrow(() -> new ResourceNotFoundException("Evento de ID " + request.eventoId() + " não encontrado."));
+        EventoModel evento = buscarEventoOuFalhar(request.eventoId());
 
         djExistente.setDj(request.dj());
         djExistente.setLabel(request.label());
@@ -63,15 +61,28 @@ public class DJService {
     }
 
     public void delete(Long id) {
-        if (!djRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Não foi possível deletar: DJ não encontrado");
-        }
-        djRepository.deleteById(id);
+        DJModel dj = buscarDjOuFalhar(id);
+        djRepository.delete(dj);
+    }
+
+    private DJModel buscarDjOuFalhar(Long id) {
+        return djRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("DJ não encontrado."));
+    }
+
+    private EventoModel buscarEventoOuFalhar(Long eventoId) {
+        return eventoRepository.findById(eventoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Evento de ID " + eventoId + " não encontrado."));
     }
 
     private DJResponseDTO converterParaResponseDTO(DJModel model) {
-        Long idEvento = (model.getEvento() != null) ? model.getEvento().getId() : null;
-        String Evento = (model.getEvento() != null) ? model.getEvento().getEvento() : "Sem evento";
+        Long idEvento = null;
+        String Evento = "Sem evento";
+
+        if (model.getEvento() != null) {
+            idEvento = model.getEvento().getId();
+            Evento = model.getEvento().getEvento();
+        }
 
         return new DJResponseDTO(
                 model.getId(),

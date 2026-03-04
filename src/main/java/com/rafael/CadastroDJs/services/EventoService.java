@@ -53,7 +53,7 @@ public class EventoService {
 
     public void delete(Long id) {
         EventoModel evento = buscarOuFalhar(id);
-        eventoRepository.deleteById(id);
+        eventoRepository.delete(evento);
     }
 
     private EventoModel buscarOuFalhar(Long id) {
