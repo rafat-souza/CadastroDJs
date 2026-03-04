@@ -6,5 +6,6 @@ public record DJResponseDTO(
         String label,
         int idade,
         String email,
+        Long eventoId,
         String nomeEvento
 ) { }

@@ -1,8 +1,11 @@
 package com.rafael.CadastroDJs.controllers;
 
+import com.rafael.CadastroDJs.DTOs.request.EventoRequestDTO;
+import com.rafael.CadastroDJs.DTOs.response.EventoResponseDTO;
 import com.rafael.CadastroDJs.models.DJModel;
 import com.rafael.CadastroDJs.models.EventoModel;
 import com.rafael.CadastroDJs.services.EventoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,26 +21,25 @@ public class EventoController {
     private final EventoService services;
 
     @GetMapping
-    public List<EventoModel> getAll() {
-        return services.getAll();
+    public ResponseEntity<List<EventoResponseDTO>> getAll() {
+        return ResponseEntity.ok(services.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EventoModel> get(@PathVariable Long id) {
-        EventoModel evento = services.get(id);
+    public ResponseEntity<EventoResponseDTO> get(@PathVariable Long id) {
+        EventoResponseDTO evento = services.get(id);
         return ResponseEntity.ok(evento);
     }
 
     @PostMapping
-    public ResponseEntity<EventoModel> create(@RequestBody EventoModel evento) {
-        EventoModel savedEvento = services.create(evento);
+    public ResponseEntity<EventoResponseDTO> create(@RequestBody @Valid EventoRequestDTO request) {
+        EventoResponseDTO savedEvento = services.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedEvento);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EventoModel> update(@PathVariable Long id, @RequestBody EventoModel evento) {
-        evento.setId(id);
-        EventoModel updatedEvento = services.create(evento);
+    public ResponseEntity<EventoResponseDTO> update(@PathVariable Long id, @RequestBody @Valid EventoRequestDTO request) {
+        EventoResponseDTO updatedEvento = services.update(id, request);
         return ResponseEntity.ok(updatedEvento);
     }
 
