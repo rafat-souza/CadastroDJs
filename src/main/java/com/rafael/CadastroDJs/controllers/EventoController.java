@@ -2,8 +2,6 @@ package com.rafael.CadastroDJs.controllers;
 
 import com.rafael.CadastroDJs.DTOs.request.EventoRequestDTO;
 import com.rafael.CadastroDJs.DTOs.response.EventoResponseDTO;
-import com.rafael.CadastroDJs.models.DJModel;
-import com.rafael.CadastroDJs.models.EventoModel;
 import com.rafael.CadastroDJs.services.EventoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

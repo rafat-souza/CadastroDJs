@@ -3,7 +3,6 @@ package com.rafael.CadastroDJs.controllers;
 import com.rafael.CadastroDJs.DTOs.request.DJRequestDTO;
 import com.rafael.CadastroDJs.DTOs.response.DJResponseDTO;
 import com.rafael.CadastroDJs.documentation.DJControllerDoc;
-import com.rafael.CadastroDJs.models.DJModel;
 import com.rafael.CadastroDJs.services.DJService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -9,8 +9,9 @@ import com.rafael.CadastroDJs.repositories.EventoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,8 +26,7 @@ public class EventoService {
     }
 
     public EventoResponseDTO get(Long id) {
-        EventoModel evento = eventoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Evento não encontrado"));
+        EventoModel evento = buscarOuFalhar(id);
         return converterParaResponseDTO(evento);
     }
 
@@ -41,8 +41,7 @@ public class EventoService {
     }
 
     public EventoResponseDTO update(Long id, EventoRequestDTO request) {
-        EventoModel eventoExistente = eventoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Evento não encontrado"));
+        EventoModel eventoExistente = buscarOuFalhar(id);
 
         eventoExistente.setEvento(request.evento());
         eventoExistente.setLocal(request.local());
@@ -53,20 +52,21 @@ public class EventoService {
     }
 
     public void delete(Long id) {
-        if (!eventoRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Não foi possível deletar: Evento não encontrado");
-        }
+        EventoModel evento = buscarOuFalhar(id);
         eventoRepository.deleteById(id);
     }
 
-    private EventoResponseDTO converterParaResponseDTO(EventoModel model) {
-        List<String> djsConfirmados = new ArrayList<>();
+    private EventoModel buscarOuFalhar(Long id) {
+        return eventoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Evento não encontrado"));
+    }
 
-        if (model.getDjs() != null && !model.getDjs().isEmpty()) {
-            djsConfirmados = model.getDjs().stream()
-                    .map(DJModel::getDj)
-                    .toList();
-        }
+    private EventoResponseDTO converterParaResponseDTO(EventoModel model) {
+        List<String> djsConfirmados = Optional.ofNullable(model.getDjs())
+                .orElseGet(Collections::emptyList)
+                .stream()
+                .map(DJModel::getDj)
+                .toList();
 
         return new EventoResponseDTO(
                 model.getId(),
