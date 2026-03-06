@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/djs")
-@RequiredArgsConstructor // Substitui construtor (faz a injeção de dependência) para pegar serviço
+@RequiredArgsConstructor // Substitui construtor (faz a injeção de dependência) para pegar serviços
 public class DJController implements DJControllerDoc {
 
     private final DJService services;
@@ -32,18 +32,21 @@ public class DJController implements DJControllerDoc {
         return ResponseEntity.ok(dj);
     }
 
+    @Override
     @PostMapping
     public ResponseEntity<DJResponseDTO> create(@RequestBody @Valid DJRequestDTO request) { // @RequestBody chama os atributos da class (colunas da tabela)
         DJResponseDTO savedDj = services.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedDj);
     }
 
+    @Override
     @PutMapping("/{id}")
     public ResponseEntity<DJResponseDTO> update(@PathVariable Long id, @RequestBody @Valid DJRequestDTO request) {
         DJResponseDTO updatedDj = services.update(id, request);
         return ResponseEntity.ok(updatedDj);
     }
 
+    @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         services.delete(id);
