@@ -18,7 +18,10 @@ public interface EventoControllerDoc {
 
     // Resgatar todos
     @Operation(summary = "Resgatar todos os eventos", description = "Retorna todos os eventos cadastrados na base de dados")
-    @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Nenhum evento encontrado"),
+    })
     public ResponseEntity<List<EventoResponseDTO>> getAll();
 
     // Resgatar um
@@ -35,7 +38,8 @@ public interface EventoControllerDoc {
     @Operation(summary = "Cadastrar novo evento", description = "Cria um novo evento para a base de dados")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Evento cadastrado com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Erro de validação nos dados enviados (ex: nome vazio)")
+            @ApiResponse(responseCode = "400", description = "Erro de validação nos dados enviados (ex: nome vazio)"),
+            @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     public ResponseEntity<EventoResponseDTO> create(
             @Parameter(description = "Atributos do novo evento") @RequestBody EventoRequestDTO request
@@ -46,7 +50,8 @@ public interface EventoControllerDoc {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Evento atualizado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Erro de validação nos dados enviados (ex: nome vazio)"),
-            @ApiResponse(responseCode = "404", description = "Evento buscado não foi encontrado")
+            @ApiResponse(responseCode = "404", description = "Evento buscado não foi encontrado"),
+            @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     public ResponseEntity<EventoResponseDTO> update(
             @Parameter(description = "id do evento a ser atualizado") @PathVariable Long id,
@@ -57,7 +62,8 @@ public interface EventoControllerDoc {
     @Operation(summary = "Remover evento", description = "Remove evento permanentemente da base de dados")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Evento excluído com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Evento não foi encontrado")
+            @ApiResponse(responseCode = "404", description = "Evento não foi encontrado"),
+            @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     public ResponseEntity<Void> delete(
             @Parameter(description = "id do evento a ser deletado") @PathVariable Long id

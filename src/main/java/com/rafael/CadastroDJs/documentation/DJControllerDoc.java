@@ -19,7 +19,10 @@ public interface DJControllerDoc {
 
     // Resgatar todos
     @Operation(summary = "Resgatar todos os DJs", description = "Retorna uma lista paginada dos DJs ativos")
-    @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Nenhum DJ encontrado"),
+    })
     public ResponseEntity<List<DJResponseDTO>> getAll();
 
     // Resgatar único
@@ -37,7 +40,8 @@ public interface DJControllerDoc {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "DJ criado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Erro de validação nos dados enviados (ex: nome vazio, email inválido)"),
-            @ApiResponse(responseCode = "404", description = "Evento referenciado não foi encontrado")
+            @ApiResponse(responseCode = "404", description = "Evento referenciado não foi encontrado"),
+            @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     public ResponseEntity<DJResponseDTO> create(
             @Parameter(description = "Dados do novo DJ") @RequestBody DJRequestDTO request
@@ -48,7 +52,8 @@ public interface DJControllerDoc {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "DJ atualizado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Erro de validação nos dados enviados (ex: nome vazio, email inválido)"),
-            @ApiResponse(responseCode = "404", description = "DJ ou evento referenciado não foi encontrado")
+            @ApiResponse(responseCode = "404", description = "DJ ou evento referenciado não foi encontrado"),
+            @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     public ResponseEntity<DJResponseDTO> update(
             @Parameter(description = "id do DJ a ser atualizado", example = "1") @PathVariable Long id,
@@ -59,7 +64,8 @@ public interface DJControllerDoc {
     @Operation(summary = "Deletar DJ", description = "Remove permanentemente um DJ existente da base de dados")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "DJ excluído com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Nenhum DJ com o id inserido foi encontrado")
+            @ApiResponse(responseCode = "404", description = "Nenhum DJ com o id inserido foi encontrado"),
+            @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     public ResponseEntity<Void> delete(
             @Parameter(description = "id do DJ a ser deletado", example = "1") @PathVariable Long id
