@@ -23,10 +23,10 @@ public interface DJControllerDoc {
     public ResponseEntity<List<DJResponseDTO>> getAll();
 
     // Resgatar único
-    @Operation(summary = "Resgata um DJ", description = "Resgata um dj em específico pelo id")
+    @Operation(summary = "Resgatar um DJ", description = "Resgata um dj em específico pelo id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Dj não existe na base de dados")
+            @ApiResponse(responseCode = "404", description = "Dj não foi encontrado")
     })
     public ResponseEntity<DJResponseDTO> get(
             @Parameter(description = "id do dj a ser buscado", example = "1") @PathVariable Long id
@@ -37,7 +37,7 @@ public interface DJControllerDoc {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "DJ criado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Erro de validação nos dados enviados (ex: nome vazio, email inválido)"),
-            @ApiResponse(responseCode = "404", description = "Evento referenciado não existe na base de dados")
+            @ApiResponse(responseCode = "404", description = "Evento referenciado não foi encontrado")
     })
     public ResponseEntity<DJResponseDTO> create(
             @Parameter(description = "Dados do novo DJ") @RequestBody DJRequestDTO request
@@ -48,7 +48,7 @@ public interface DJControllerDoc {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "DJ atualizado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Erro de validação nos dados enviados (ex: nome vazio, email inválido)"),
-            @ApiResponse(responseCode = "404", description = "DJ ou evento referenciado não existe na base de dados")
+            @ApiResponse(responseCode = "404", description = "DJ ou evento referenciado não foi encontrado")
     })
     public ResponseEntity<DJResponseDTO> update(
             @Parameter(description = "id do DJ a ser atualizado", example = "1") @PathVariable Long id,
