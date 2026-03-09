@@ -19,7 +19,7 @@ public interface DJControllerDoc {
 
     // Resgatar todos
     @Operation(summary = "Resgatar todos os DJs", description = "Retorna uma lista paginada dos DJs ativos")
-    @ApiResponses(value = {
+    @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso"),
             @ApiResponse(responseCode = "404", description = "Nenhum DJ encontrado"),
     })
@@ -27,7 +27,7 @@ public interface DJControllerDoc {
 
     // Resgatar único
     @Operation(summary = "Resgatar um DJ", description = "Resgata um dj em específico pelo id")
-    @ApiResponses(value = {
+    @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso"),
             @ApiResponse(responseCode = "404", description = "Dj não foi encontrado")
     })
@@ -37,7 +37,7 @@ public interface DJControllerDoc {
 
     // Criar
     @Operation(summary = "Cadastrar novo DJ", description = "Cria um novo Dj e o vincula a um evento existente através do eventoId")
-    @ApiResponses(value = {
+    @ApiResponses({
             @ApiResponse(responseCode = "201", description = "DJ criado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Erro de validação nos dados enviados (ex: nome vazio, email inválido)"),
             @ApiResponse(responseCode = "404", description = "Evento referenciado não foi encontrado"),
@@ -49,7 +49,7 @@ public interface DJControllerDoc {
 
     // Atualizar
     @Operation(summary = "Atualizar DJ", description = "Atualiza os dados de um DJ já existente na base de dados")
-    @ApiResponses(value = {
+    @ApiResponses({
             @ApiResponse(responseCode = "200", description = "DJ atualizado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Erro de validação nos dados enviados (ex: nome vazio, email inválido)"),
             @ApiResponse(responseCode = "404", description = "DJ ou evento referenciado não foi encontrado"),
@@ -62,7 +62,7 @@ public interface DJControllerDoc {
 
     // Deletar
     @Operation(summary = "Deletar DJ", description = "Remove permanentemente um DJ existente da base de dados")
-    @ApiResponses(value = {
+    @ApiResponses({
             @ApiResponse(responseCode = "204", description = "DJ excluído com sucesso"),
             @ApiResponse(responseCode = "404", description = "Nenhum DJ com o id inserido foi encontrado"),
             @ApiResponse(responseCode = "401", description = "Não autorizado")
